@@ -1,3 +1,3 @@
 # Kill-the-kittens
 Det perfekte spillet for dem som er lei alle internett kattene og bare ønsker å sprenge dem opp i lufta. Sånn faktisk...
-<br> Rawgit: https://cdn.rawgit.com/ReddikHaien/Kill-the-kittens/e3cd8099/a%20cute%20tanky%20cat%20game/index.html
+<br> Rawgit: https://cdn.rawgit.com/ReddikHaien/Kill-the-kittens/fd028f80/a%20cute%20tanky%20cat%20game/index.html
