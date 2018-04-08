@@ -61,7 +61,8 @@ class Player{
 			}
 
 			if (keys.get(32) == true && this.cannonCoolDown == 0){
-				Util.CreateBullet(this.x,this.y-6,this.r);
+                Util.CreateBullet(this.x,this.y-6,this.r);
+                Sound.playSound("pang");
 				this.cannonCoolDown = this.coolDownTime;
 			}
 
@@ -179,13 +180,17 @@ class Kitten{
         }
 
         if (this.hit){
-            console.log("truffet " + this.health);
+            
             this.health--;
             this.hit = false
             if (this.health <= 0){
                 Game.score++;
                 Particle.addPartices(10,"smallCatSplat",this.x,this.y);
+                Sound.playSound("splatt");
                 return true;
+            }
+            else{
+                Sound.playSound("mjau" + (Math.floor(Math.random()*6)+1));
             }
         }
         
@@ -319,6 +324,7 @@ class BossCat{
 
             if (d <= 484){
                 this.currentHealth--;
+                Sound.playSound("bossMjau" + (Math.floor(Math.random()*3) + 1));
                 if (this.currentHealth < 0){
                     this.currentHealth = 0;
                 }

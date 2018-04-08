@@ -67,6 +67,7 @@ function waiter(){
         Render.init();
         Particle.init();
         Game.init();
+        Sound.init();
         requestAnimationFrame(run);
     }
 
