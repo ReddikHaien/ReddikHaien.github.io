@@ -3,7 +3,5 @@ Det perfekte spillet for dem som er lei alle internett kattene og bare Ã¸nsker Ã
 <br>
 <br> <h1> NY VERSJON </h1>
 <ul>
-  <li> lyd </li>
-  <li> ny font </li>
-  <li> tab for hvordan spille </li>
+  <li> lydfiks slik at samme lyden kan spilles samtidig </li>
 </u>
