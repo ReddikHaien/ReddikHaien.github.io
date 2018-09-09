@@ -16,7 +16,7 @@ var Render = {
         this.gradient.addColorStop(1,"cyan");
         
 
-        //spritepool som holder en referanse til alle spritsene i spillet (utenom font)
+        //spritepool som holder en referanse til alle sprite-ene i spillet (utenom font)
         this.spritePool = new Map();
 
         this.spritePool.set("001", new Sprite(63,20,26,12)); // tank body
@@ -43,45 +43,56 @@ var Render = {
     },
 
     drawImage: function(image, posX, posY, tileX, tileY, width, height, rotation){
+
+        //COMPRESS keep save translate rotate drawImage restore
         context.save();
-        context.translate(posX,posY)
+        context.translate(posX,posY);
         context.rotate(rotation * Util.radian);
         context.drawImage(image,tileX,tileY,width,height,-width/2,-height/2,width,height);
         context.restore();
-
+        //COMPRESS free save translate rotate drawImage restore
         
     },
 
     drawGround: function(image, tx, ty, w, h){
+        //COMPRESS keep drawImage
         for (let x = 0; x < WIDTH/w; x++){
             context.drawImage(image,tx,ty,w,h,x*w,HEIGHT-h,w,h);
         }
+        //COMPRESS free drawImage
     },
 
     drawBullets: function(){
+        //COMPRESS keep length
         for (let i = 0; i < Game.bullets.length; i++){
             Game.bullets[i].render();
         }
+        //COMPRESS free length
     },
     drawKittens: function(){
+        //COMPRESS keep length
         for (let i = 0; i < Game.kittens.length; i++){
             Game.kittens[i].render();
         }
+        //COMPRESS free length
     },
 
     drawBackground: function(){
+        //COMPRESS keep fillRect fillStyle
         context.fillStyle = this.gradient;
         context.fillRect(0,0,WIDTH,HEIGHT);
+        //COMPRESS free fillRect fillStyle
     },
 
     drawScore: function(){
-        this.drawSprite("007",6,7,0)
-        this.drawText("" + Game.score,19,7)
+        this.drawSprite("007",6,7,0);
+        this.drawText("" + Game.score,19,7);
 
         this.drawText("LEVEL " + Game.level,WIDTH - Text.getLength("LEVEL " + Game.level),4);
     },
 	
 	drawText: function(text, x, y){
+        //COMPRESS keep length charAt
         let textWidth = 0;
         let size = 0;
 		for (let i = 0; i < text.length; i++){
@@ -111,13 +122,16 @@ var Render = {
                 textWidth+= Text.symbols.get(char).w2/2 + 1;
             }
         }
+        //COMPRESS free length charAt
     },
     
     drawBossHealthBar: function(){
+
+        
         let max = Game.bossEntity.maxHealth;
         let cur = Game.bossEntity.currentHealth;
 
-        let scaled = cur/max * 100
+        let scaled = cur/max * 100;
 
         this.fillRect(WIDTH/2-51,20,102,6,"lightgray");
         this.fillRect(WIDTH/2 - 50,21,scaled,4,"green");
@@ -125,7 +139,9 @@ var Render = {
     },
 
     fillRect: function(x,y,w,h,c){
+        //COMPRESS keep fillStyle fillRect
         context.fillStyle = c;
         context.fillRect(x,y,w,h);
+        //COMPRESS free fillStyle fillRect
     },
 };

@@ -16,12 +16,13 @@ var Particle = {
         // liste med alle partiklene som er aktiv i scenen
         this.particles = [];
     },
-
+    //COMPRESS keep length
     tick: function(){
         for (let i = 0; i < this.particles.length; i++){
             this.particles[i].tick();
             this.updateParticle(this.particles[i]);
         }
+    
 
 
         for (let i = this.particles.length-1; i >= 0; i--){
@@ -30,6 +31,7 @@ var Particle = {
             }
         }
     },
+    
 
     render: function(){
         for (let i = 0; i < this.particles.length; i++){
@@ -58,7 +60,7 @@ var Particle = {
             this.particles.push(new particle(x,y,Math.random()*3-1.5,Math.random()*3-1.5,index,set));
         }
     },
-
+    //COMPRESS free length
     updateParticle: function(particle){
         this.particleTypes.get(particle.particleSet).updateParticle(particle);
     },
@@ -70,7 +72,7 @@ var Particle = {
     getParticleSet: function(name){
         return this.particleTypes.get(name);
     }
-}
+};
 
 class particle{
 
@@ -97,7 +99,7 @@ class particle{
         }
         return false;
     }
-}
+};
 
 class ParticleSet{
     constructor(gravity, airrestance, lifetime, sprites, spawnType){
@@ -135,4 +137,4 @@ class ParticleSet{
     renderParticle(particle){
         this.sprites[particle.spriteIndex].render(particle.x,particle.y,0);
     }
-}
+};

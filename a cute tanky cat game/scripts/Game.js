@@ -11,7 +11,7 @@ var Game = {
     //kattene
     kittens:[],
 
-    // spawnRate
+    // spawnRate for katter
     spawnRate: 30,
     spawnCoolDown: 4,
 
@@ -20,7 +20,7 @@ var Game = {
 	
 
 	// 	level
-	// øker prosentvis
+	// øker prosentvis-ish
 	level: 1, 
 	nextLevel: 0,
 	// game state 0 - forside 1 - spill
@@ -39,7 +39,7 @@ var Game = {
 	bosslevel: 3,
     init: function(){
 
-		console.log("initialiserer spill variabler")
+		console.log("initialiserer spill variabler");
         this.player = new Player(128,128-7);
 		
 		
@@ -140,6 +140,7 @@ var Game = {
     },
 
     render: function(){
+		//COMPRESS keep clearRect
         context.clearRect(0,0,WIDTH,HEIGHT);
 		
 		if (this.gameState == 0){
@@ -194,6 +195,7 @@ var Game = {
 			Render.drawText("<ENTER> BRUKES TIL Å VELGE HANDLINGER",WIDTH/8,HEIGHT/4+30);
 			Render.drawText("TRYKK <ENTER> FOR Å GÅ TILBAKE",WIDTH - Text.getLength("TRYKK <ENTER> FOR Å GÅ TILBAKE"),HEIGHT-7);
 		}
+		//COMPRESS free clearRect
 	},
 	
 	reset: function(){

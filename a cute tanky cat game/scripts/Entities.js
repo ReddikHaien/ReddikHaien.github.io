@@ -18,7 +18,7 @@ class Sprite{
     render(x, y, r){
         Render.drawImage(images[2],x,y,this.tx, this.ty, this.w, this.h, r);
     }
-}
+};
 
 // liste med alle kittenSpritene
 kittenSprites = ["004","005","006"];
@@ -72,14 +72,14 @@ class Player{
 		
 		
 			for (let i = 0; i < Game.kittens.length; i++){
-				let d = (this.x - Game.kittens[i].x) * (this.x - Game.kittens[i].x) + (this.y - Game.kittens[i].y) * (this.y - Game.kittens[i].y)
+				let d = (this.x - Game.kittens[i].x) * (this.x - Game.kittens[i].x) + (this.y - Game.kittens[i].y) * (this.y - Game.kittens[i].y);
 				if (d < 100){
 					this.hit = true;
 				}
             }
             
             if (Game.bossEntity != undefined){
-                let d = (this.x - Game.bossEntity.x) * (this.x - Game.bossEntity.x) + (this.y - Game.bossEntity.y) * (this.y - Game.bossEntity.y)
+                let d = (this.x - Game.bossEntity.x) * (this.x - Game.bossEntity.x) + (this.y - Game.bossEntity.y) * (this.y - Game.bossEntity.y);
 
                 if (d < 300){
                     this.hit = true;
@@ -93,7 +93,7 @@ class Player{
         Render.drawSprite(this.body,this.x,this.y,0);
 		
     }
-}
+};
 
 // klasse for kulene som spilleren skyter. de har en posisjon, og retning samt sprite og rotasjon
 // de har også partikkeeffekt
@@ -146,7 +146,7 @@ class Bullet{
             return false;
         }
     }
-}
+};
 
 class Kitten{
     constructor(x, y, c){
@@ -182,7 +182,7 @@ class Kitten{
         if (this.hit){
             
             this.health--;
-            this.hit = false
+            this.hit = false;
             if (this.health <= 0){
                 Game.score++;
                 Particle.addPartices(10,"smallCatSplat",this.x,this.y);
@@ -190,14 +190,14 @@ class Kitten{
                 return true;
             }
             else{
-                Sound.playSound("mjau" + (Math.floor(Math.random()*6)+1));
+                //Sound.playSound("mjau" + (Math.floor(Math.random()*6)+1));
             }
         }
         
         return false;
     }
 
-}
+};
 
 
 class BossCat{
@@ -232,7 +232,7 @@ class BossCat{
         this.destinationY = 64;
 
 
-        this.animationTimer = 0
+        this.animationTimer = 0;
     }
 
 
@@ -260,7 +260,7 @@ class BossCat{
            
             if (this.currentAttack == 0){ // angrep 1 beveger seg mot målet
                 if (this.x == this.destinationX){ // har bossen nådd målet sitt
-                    this.oldTime = this.currentTime // reset timeren
+                    this.oldTime = this.currentTime; // reset timeren
                     this.attackState = 3; // gå til stadie 4
                 }
             }
@@ -295,7 +295,7 @@ class BossCat{
 
 
 
-        let dirX = Math.abs(this.x - this.destinationX)
+        let dirX = Math.abs(this.x - this.destinationX);
 
         let dirY = Math.abs(this.y - this.destinationY);
 

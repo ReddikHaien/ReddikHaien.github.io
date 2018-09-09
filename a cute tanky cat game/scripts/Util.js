@@ -1,6 +1,6 @@
 // utilities
 // her håndteres generelle funksjoner som skapelse og sletting av objekter
-
+//COMPRESS keep length
 var Util = {
 
     radian: Math.PI/180,
@@ -9,6 +9,7 @@ var Util = {
         
         // doomBullets er en array som holder indexnummeret til alle kulene som skal fjernes.
         // grunnen til at de fjernes etter update er at den ikke skal hoppe over en kule i farten hvis mange fjernes
+        
         let doomedBullets = [];
         for (let i = 0; i < Game.bullets.length; i++){
             Game.bullets[i].tick();
@@ -24,7 +25,7 @@ var Util = {
             Game.bullets.splice(doomedBullets[j],1);
         }
 
-
+        
         
     },
 
@@ -65,4 +66,5 @@ var Util = {
     }
     
 
-}
+};
+//COMPRESS free length

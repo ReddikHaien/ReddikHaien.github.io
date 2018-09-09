@@ -68,7 +68,7 @@ var Text = {
 		this.symbols.set(".",new Character(39,20,1,5, 119,7,3,7));
 		this.symbols.set(",",new Character(40,20,1,5, 122,7,3,7));
 	},
-
+	//COMPRESS keep charAt length
 	getLength: function(text){
 		let w = 0;
 		let size = 0;
@@ -83,15 +83,19 @@ var Text = {
 				size = 0;
 			}
 			else{
-				if (size == 0)	
+				if (size == 0){
 					w += this.symbols.get(text.charAt(i)).w1 + 1;
-				else
-				w += this.symbols.get(text.charAt(i)).w2 + 1;
+				}	
+				else{
+					w += this.symbols.get(text.charAt(i)).w2 + 1;
+				} 
+				    
 			}
 		}
 
 		return w;
 	}
+	//COMPRESS free charAt length
 	
-}
+};
 
