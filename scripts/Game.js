@@ -1,6 +1,7 @@
 // fil som skal håndtere selve spillet
 
 
+
 var Game = {
     // spilleren
     player: null,
@@ -15,7 +16,7 @@ var Game = {
     spawnRate: 30,
     spawnCoolDown: 4,
 
-    // scoren
+    // scoren til spilleren
     score: 0,
 	
 
@@ -23,12 +24,14 @@ var Game = {
 	// øker prosentvis-ish
 	level: 1, 
 	nextLevel: 0,
-	// game state 0 - forside 1 - spill
+
+	// game state
 	gameState: 0,
 	
 	// menyVariabler
 	selected: 0,
 	arrowClicked: false,
+	displayUpdates: false,
 
 	// scoreBoard
 	highScore: 0,
@@ -37,7 +40,7 @@ var Game = {
 	// boss
 	bossEntity: null,
 	bosslevel: 3,
-    init: function(){
+    init(){
 
 		console.log("initialiserer spill variabler");
         this.player = new Player(128,128-7);
@@ -49,11 +52,11 @@ var Game = {
 		}
 		this.highScore = localStorage.getItem("highScore");
 
-		
+
     },
 
 
-    update: function(){
+    update(){
 
 
 		// 0 = tittelskjerm
@@ -61,37 +64,45 @@ var Game = {
 		// 2 = scoreboard
 		// 3 = hvordan spille
 		if (this.gameState == 0){
-			if (keys.get(38) == true && !this.arrowClicked && this.selected > 0){
-				this.selected--;
-				this.arrowClicked = true;
-			}
-			else if (keys.get(40) == true && !this.arrowClicked && this.selected < 2){
-				this.selected++;
-				this.arrowClicked = true;
-			}
 
-			if (keys.get(38) != true && keys.get(40) != true ){
-				this.arrowClicked = false;
+			if (this.displayUpdates){
+				console.log("viste updates!!")
+				this.displayUpdates = false;
+			}
+			else{
+				if (keys.get(38) == true && !this.arrowClicked && this.selected > 0){
+					this.selected--;
+					this.arrowClicked = true;
+				}
+				else if (keys.get(40) == true && !this.arrowClicked && this.selected < 2){
+					this.selected++;
+					this.arrowClicked = true;
+				}
+	
+				if (keys.get(38) != true && keys.get(40) != true ){
+					this.arrowClicked = false;
+				}
+				
+				if (keys.get(13) == true && !this.player.hit){
+					if (this.selected == 0){
+						this.reset(); 
+						this.gameState = 1;
+					}
+					else if (this.selected == 1){
+						this.player.hit = true;
+						this.gameState = 2;
+					}
+					else if (this.selected == 2){
+						this.player.hit = true;
+						this.gameState = 3;
+					}
+				}
+	
+				if (!(keys.get(13) == true)){
+					this.player.hit = false;
+				}
 			}
 			
-			if (keys.get(13) == true && !this.player.hit){
-				if (this.selected == 0){
-					this.reset(); 
-					this.gameState = 1;
-				}
-				else if (this.selected == 1){
-					this.player.hit = true;
-					this.gameState = 2;
-				}
-				else if (this.selected == 2){
-					this.player.hit = true;
-					this.gameState = 3;
-				}
-			}
-
-			if (!(keys.get(13) == true)){
-				this.player.hit = false;
-			}
 		}
 		else if (this.gameState == 1){
 			this.spawnCoolDown++;
@@ -111,7 +122,12 @@ var Game = {
 
 			if (this.level % this.bosslevel == 0){ // boss fight!!!!!!
 				if (this.bossEntity == null){
-					this.bossEntity = new BossCat();
+					if (this.score >= 176){
+						this.bossEntity = new CookieCat();
+					}
+					else{
+						this.bossEntity = new BossCat();
+					}
 				} 
 				else{
 					this.bossEntity.tick();
@@ -139,7 +155,7 @@ var Game = {
 		}
     },
 
-    render: function(){
+    render(){
 		//COMPRESS keep clearRect
         context.clearRect(0,0,WIDTH,HEIGHT);
 		
@@ -148,7 +164,7 @@ var Game = {
 			Render.drawText("<PLAY GAME",WIDTH/2+10,HEIGHT/2);
 			Render.drawText("<SCOREBOARD",WIDTH/2+10,HEIGHT/2+8);
 			Render.drawText("<HOW TO PLAY",WIDTH/2+10,HEIGHT/2+16);
-			Render.drawSprite("008",WIDTH/2,HEIGHT/2 + 8 * this.selected,0);
+			Render.drawSprite(POINTER,WIDTH/2,HEIGHT/2 + 8 * this.selected,0);
 			Render.drawText("LAGET AV FREDRIK E. F.",4,4);
 		}
         else if(this.gameState == 1){
@@ -198,7 +214,7 @@ var Game = {
 		//COMPRESS free clearRect
 	},
 	
-	reset: function(){
+	reset(){
 		this.kittens = [];
 		this.bullets = [];
 		this.score = [];

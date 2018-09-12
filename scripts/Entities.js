@@ -21,14 +21,14 @@ class Sprite{
 };
 
 // liste med alle kittenSpritene
-kittenSprites = ["004","005","006"];
+kittenSprites = [CAT_TYPE1,CAT_TYPE2,CAT_TYPE3];
 
 class Player{
     constructor(x, y){
         // kroppen til tanken
-        this.body = "001";
+        this.body = TANK_BODY;
         // kanonen, aka hodet
-        this.head = "002";
+        this.head = TANK_HEAD;
 
         this.x = x;
         this.y = y;
@@ -105,7 +105,7 @@ class Bullet{
         this.dx = Math.sin(r * Util.radian)*3;
         this.dy =-Math.cos(r * Util.radian)*3;
 
-        this.bullet = "003";
+        this.bullet = BULLET;
 
         this.used = false;
     }
@@ -198,15 +198,77 @@ class Kitten{
     }
 
 };
+//konstanter for bossangrepene(3 stykker)
+const STARTING = 0;
+const PERFORMING = 1;
+const ENDED = 2;
+
+//grunnklasse til alle bossene i spillet
+class BossBase{
+    constructor(){
+        this.x = 128;
+        this.y = 64;
+        this.curAttack = -1;
+        this.attackState = STARTING;
+        this.attackPattern = [];
+        this.movementSpeed = 3;
+        this.maxHealth = 100;
+        this.currentHealth = this.maxHealth;
+
+        this.destinationX = 128;
+        this.destinationY = 64;
+    }
+
+    tick(){
+
+    }
+
+    render(){
+
+    }
+
+    moveBoss(){
+        if (this.x < this.destinationX){
+            this.x += Math.min(this.movementSpeed,this.destinationX - this.x);
+        }
+        else if (this.x > this.destinationX){
+            this.x -= Math.min(this.movementSpeed,this.x - this.destinationX);
+        }
+
+        if (this.y < this.destinationY){
+            this.y += Math.min(this.movementSpeed,this.destinationY - this.y);
+        }
+        else if (this.y > this.destinationY){
+            this.y -= Math.min(this.movementSpeed,this.y - this.destinationY);
+        }
+    }
+
+    testDamage(){
+        for (let i = 0; i < Game.bullets.length; i++){
+            let d = (this.x - Game.bullets[i].x) * (this.x - Game.bullets[i].x) + (this.y - Game.bullets[i].y) * (this.y - Game.bullets[i].y);
+
+            if (d <= 484){
+                this.currentHealth--;
+                Sound.playSound("bossMjau" + (Math.floor(Math.random()*3) + 1));
+                if (this.currentHealth < 0){
+                    this.currentHealth = 0;
+                }
+
+                Game.bullets[i].used = true;
+            }
+
+        }
+    }
+}
 
 
 class BossCat{
     constructor(){
-        this.head = "011";
-        this.leftPaw = "014";
-        this.rightPaw = "015";
-        this.leftEar = "012";
-        this.rightEar = "013";
+        this.head = TRYGVE_BODY;
+        this.leftPaw = TRYGVE_LEFT_PAW;
+        this.rightPaw = TRYGVE_RIGHT_PAW;
+        this.leftEar = TRYGVE_LEFT_EAR;
+        this.rightEar = TRYGVE_RIGHT_EAR;
     
         this.x = 128;
         this.y = 64;
@@ -219,7 +281,7 @@ class BossCat{
 
         this.movementSpeed = 3;
         
-        this.maxHealth = 10;
+        this.maxHealth = 100;
         this.currentHealth = this.maxHealth;
         
         // angrepsmeteret 
@@ -352,5 +414,136 @@ class BossCat{
         Render.drawSprite(this.rightPaw, this.x+19,this.y+18 + Math.sin(this.animationTimer),0);
         Render.drawSprite(this.head, this.x,this.y,0);
         
+    }
+}
+
+class CookieCat extends BossBase{
+    constructor(){
+        super();
+        this.body = COOKIE_BODY;
+        this.eyes = [[COOKIE_EYE1_LEFT,COOKIE_EYE2_RIGHT]];
+        this.jawTop = COOKIE_JAW_TOP;
+        this.jawBot = COOKIE_JAW_BOT;
+        this.animationTimer = 0;
+        this.curAttack = 0;
+        this.attackState = STARTING;
+        this.attackTimer = 0;
+        this.imune = true;
+        this.y = -30;
+        this.destinationX = this.x;
+        this.destinationY = this.y; 
+        
+        this.jawpos = 0;
+        this.jawDest = 0;
+        //angrepenes rekkefølge
+        this.attackPattern = [1];
+        //angrepsantall eller tid
+        this.attackTimes = [3,10];
+    }
+    tick(){
+
+        if (!this.imune){
+            this.testDamage();
+        }
+
+        if (this.currentHealth <= 0){
+            Game.level++;
+            Game.nextLevel += Util.getRequiredScore();
+            Particle.addPartices(100,"bigCatSplat",this.x,this.y);
+            Game.bossEntity = null;
+        }
+
+        switch(this.curAttack){
+
+            //INTRO
+            case 0:
+                switch(this.attackState){
+                    case 0: //FORBEREDELSE
+                        if (this.attackTimer === 0){
+                            this.attackTimer = Time.elapsed;
+                        }
+                        else if ( Time.elapsed - this.attackTimer > 1000){
+                            this.destinationY = 64;
+                            this.attackState = 1;
+                        }
+                    break;
+                    case 1://DALER NED
+                        if (this.y === this.destinationY && this.x === this.destinationX){
+                            this.attackTimer = Time.elapsed;
+                            this.attackState = 2;
+                        }
+                    break;
+                    case 2:// ÅPNE KJEFTEN
+                        if (Time.elapsed - this.attackTimer > 1000){
+                            
+                            this.jawDest = 10;
+                            this.attackState = 3;
+                        }
+                    break;
+                    case 3: // SETT TIMEREN KLAR FOR ANGREP
+                        if (this.jawDest === this.jawpos){
+                            this.attackTimer = Time.elapsed;
+                            this.attackState = 4;
+                        }            
+                    break;
+                    case 4:// START ANGREPET
+                        if (Time.elapsed - this.attackTimer > 500){
+                            this.curAttack = this.attackPattern[0];
+                            this.attackState = 0;
+                            this.attackTimer  = Time.elapsed;
+                            this.jawDest = 0;
+                            this.imune = false;
+                        }
+                    break;
+                }
+            break;
+            //ANGREP NUMMER 1, BODY SLAM
+            case 1:
+                switch(this.attackState){
+                    case 0: //FORBEREDELSE
+                    if (this.destinationX == this.x && this.destinationY == this.y){
+                        this.destinationX = Game.player.x;
+                        this.attackState = 1;
+                    }
+                    break;
+                    case 1:  //FLYTTESTADIET
+                    if (this.x === this.destinationX){
+                        this.attackState = 2;
+                    }
+                    break;
+                    case 2: // BODYSLAM
+                    this.destinationY = 128;
+                    this.attackState = 3;
+                    break;
+                    case 3: //FLYTTING
+                    if (this.destinationY == this.y){
+                        this.attackState = 0;
+                        this.destinationY = 64;
+                    }
+                    break;
+                }
+            break;
+        }
+
+        this.moveBoss();
+        this.moveJaw();
+    }
+
+    moveJaw(){
+        if (this.jawpos > this.jawDest){
+            this.jawpos -= 1;
+        }
+        else if (this.jawpos < this.jawDest){
+            this.jawpos += 1;
+        }
+    }
+
+    render(){
+        this.animationTimer += Time.delta/1000;
+        Render.drawSprite(this.body,this.x, this.y,this.animationTimer*20);
+        Render.drawSprite(this.eyes[0][0], this.x-15, this.y-5,0);
+        Render.drawSprite(this.eyes[0][1], this.x+15, this.y-5,0);
+        Render.drawSprite(this.jawTop,this.x,this.y+10,0);
+        Render.drawSprite(this.jawBot,this.x,this.y+15 + this.jawpos,0);
     }
 }

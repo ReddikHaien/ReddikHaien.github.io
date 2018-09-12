@@ -1,6 +1,67 @@
 // utilities
 // her håndteres generelle funksjoner som skapelse og sletting av objekter
 //COMPRESS keep length
+
+const CAT_ENTITIES = 0;
+const BULLET_ENTITIES = 1;
+
+const CAT_TYPES = {
+
+};
+
+class EntityContainer{
+    constructor(){
+        this.type = undefined;
+        this.active = false;
+    }
+};
+
+var EntityManager = {
+    kittens: [],
+    inactiveKittens: [],
+    bullets: [],
+    inactiveBullets: [],
+    player: undefined,
+
+    init(){
+        for (let i = 0; i < 30; i++){
+            this.kittens.push(new EntityContainer());
+            this.inactiveKittens.push(this.kittens[i]);
+        }
+        for (let i = 0; i < 30; i++){
+            this.bullets.push(new EntityContainer());
+            this.inactiveBullets.push(this.bullets[i]);
+        }
+        console.log("laget entity buffere");
+    },
+    spawnEntity(group, type){
+        switch(group){
+            case CAT_ENTITIES:
+                let e = this.inactiveKittens.pop();
+                e.type = type;
+                e.active = true;
+            break;
+            case BULLET_ENTITIES:
+                let e = this.inactiveBullets.pop();
+                e.type = type;
+                e.active = true;
+            break;
+        }
+    },
+    killEntity(group, entity){
+        switch(group){
+            case CAT_ENTITIES:
+                this.inactiveKittens.push(entity);
+                entity.active = false;
+            break;
+            case BULLET_ENTITIES:
+                this.inactiveBullets.push(entity);
+                entity.active = false;
+            break;
+        }
+    }
+};
+
 var Util = {
 
     radian: Math.PI/180,
@@ -53,7 +114,9 @@ var Util = {
     CreateKitten: function(x, y, c){
         Game.kittens.push(new Kitten(x,y,c));
     },
-
+    AddKitten(x, y, t){
+        EntityManager.spawnEntity(CAT_ENTITIES,)
+    },
     getRequiredScore: function(){
         return Math.pow(1.1,Game.level - 1) * 10;
     },

@@ -20,7 +20,7 @@ class Character{
 		}
 	}
 
-}
+};
 
 var Text = {
 	symbols: new Map(),
