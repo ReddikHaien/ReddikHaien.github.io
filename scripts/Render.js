@@ -35,19 +35,19 @@ var Render = {
 
         //spritepool som holder en referanse til alle sprite-ene i spillet (utenom font)
         this.spritePool = [
-            new Sprite(63,20,26,12), // tank body
-            new Sprite(63, 0,10,20), // tank head
+            new Sprite(73,0,26,12), // tank body
+            new Sprite(63, 0,10,15), // tank head
             new Sprite( 0,32, 6,10), // bullet
             new Sprite( 0, 0,21,28), // cat type 1
             new Sprite(21, 0,21,28), // cat type 2
             new Sprite(42, 0,21,28), // cat type 3
             new Sprite( 6,28,13,14), // scoreCounter
             new Sprite(19,33, 9, 9), // pointer
-            new Sprite( 0,70,66,42), // trygve body
-            new Sprite(89,52,11,14), // Trygve left ear
-            new Sprite(89,66,11,14), // Trygve right ear
-            new Sprite(66,52,23,30), // Trygve left paw
-            new Sprite(66,82,23,30), // Trygve right paw
+            new Sprite(190,0,66,42), // trygve body
+            new Sprite(89,25,11,14), // Trygve left ear
+            new Sprite(89,39,11,14), // Trygve right ear
+            new Sprite(66,25,23,30), // Trygve left paw
+            new Sprite(66,55,23,30), // Trygve right paw
             new Sprite(208,42,48,47), // cookie body
             new Sprite(191,42,9,6), // cookie eye type 1 left
             new Sprite(199,42,9,6), // cookie eye type 1 right

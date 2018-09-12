@@ -10,9 +10,9 @@ var Particle = {
         // forskjellige partikkeltyper
         
         // vanlig ekslosjon
-        this.particleTypes.set("explosion", new ParticleSet( 0,0,40, [new Sprite(73,0,3,3),new Sprite(76,0,3,3),new Sprite(79,0,3,3)],1 ));
-        this.particleTypes.set("smallCatSplat", new ParticleSet(0.05,0.01,300, [new Sprite(73,4,7,6), new Sprite(80,5,3,5),new Sprite(83,5,3,5), new Sprite(80,3,2,2), new Sprite(82,3,2,2), new Sprite(84,3,2,2)],2 ));
-        this.particleTypes.set("bigCatSplat", new ParticleSet(0.05,0.1,300,[new Sprite(80,3,2,2), new Sprite(82,3,2,2), new Sprite(84,3,2,2)], 1));
+        this.particleTypes.set("explosion", new ParticleSet( 0,0,40, [new Sprite(63,15,3,3),new Sprite(66,15,3,3),new Sprite(69,15,3,3)],1 ));
+        this.particleTypes.set("smallCatSplat", new ParticleSet(0.05,0.01,300, [new Sprite(63,19,7,6), new Sprite(70,20,3,5),new Sprite(73,20,3,5), new Sprite(70,18,2,2), new Sprite(72,18,2,2), new Sprite(74,18,2,2)],2 ));
+        this.particleTypes.set("bigCatSplat", new ParticleSet(0.05,0.1,300,[new Sprite(70,18,2,2), new Sprite(72,18,2,2), new Sprite(74,18,2,2)], 1));
         // liste med alle partiklene som er aktiv i scenen
         this.particles = [];
     },
