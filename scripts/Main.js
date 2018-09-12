@@ -1,23 +1,28 @@
 // globale variabler som grunnmotoren skal bruke
+const VERSION = 2.0;
 var canvas = document.getElementById("canvas");
-var context = canvas.getContext("2d");
-
+const context = canvas.getContext("2d");
 const WIDTH = 256;
 const HEIGHT = 128;
+const SCALE = 3;
 
+const Time = {
+    delta: 0,
+    elapsed: 0,
+}
 // bildefiler
 images = [];
 // teller for antall bilder som er lastet inn
 var loadedImages = 0;
 // liste med filene
-var imageFiles = ["frontpage", "scoreboard", "entities", "font", "training"];
+var imageFiles = ["frontpage", "scoreboard", "sprites", "font", "training"];
 
 
 
 // preInit
 //COMPRESS keep canvas width height imageSmoothingEnabled
-context.canvas.width = WIDTH;
-context.canvas.height = HEIGHT;
+context.canvas.width = WIDTH*SCALE;
+context.canvas.height = HEIGHT*SCALE;
 context.imageSmoothingEnabled = false;
 //COMPRESS free canvas width height imageSmoothingEnabled
 
@@ -49,10 +54,19 @@ function keyUp(e){
 document.onkeydown = keyDown;
 document.onkeyup = keyUp;
 //COMPRESS free onkeydown onkeyup
-
+Time.elapsed = performance.now();
 function run(){
-
+    let cur = performance.now();
     
+    if (cur - Time.elapsed > 100){
+        console.log("frameTime to long, skipping");
+        requestAnimationFrame(run);
+        Time.elapsed = cur;
+        return;
+        
+    }
+    Time.delta = cur - Time.elapsed
+    Time.elapsed = cur;
 
     Game.update();
     Game.render();
@@ -73,6 +87,8 @@ function waiter(){
         Particle.init();
         Game.init();
         Sound.init();
+        EntityManager.init();
+        Tester.checkVersion();
         requestAnimationFrame(run);
     }
 
