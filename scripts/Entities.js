@@ -432,6 +432,7 @@ class CookieCat extends BossBase{
         this.y = -30;
         this.destinationX = this.x;
         this.destinationY = this.y; 
+	this.movementSpeed = 1.2;
         
         this.jawpos = 0;
         this.jawDest = 0;
