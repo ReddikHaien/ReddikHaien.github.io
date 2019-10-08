@@ -35,14 +35,15 @@ var EntityManager = {
         console.log("laget entity buffere");
     },
     spawnEntity(group, type){
+        var e;
         switch(group){
             case CAT_ENTITIES:
-                let e = this.inactiveKittens.pop();
+                e = this.inactiveKittens.pop();
                 e.type = type;
                 e.active = true;
             break;
             case BULLET_ENTITIES:
-                let e = this.inactiveBullets.pop();
+                e = this.inactiveBullets.pop();
                 e.type = type;
                 e.active = true;
             break;
