@@ -22,6 +22,9 @@ nav{
     margin: auto;
 }
 
+nav a {
+    display: block;
+}
 nav a :nth-child(even){
     background-color: lightgray;
 }
