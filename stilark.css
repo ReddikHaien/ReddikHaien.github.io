@@ -25,6 +25,6 @@ nav{
 nav a {
     display: block;
 }
-nav a :nth-child(even){
+nav a:nth-child(even){
     background-color: lightgray;
 }
