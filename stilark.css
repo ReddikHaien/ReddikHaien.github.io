@@ -1,0 +1,26 @@
+*{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#header{
+    text-align: center;
+    width: 100%;
+}
+
+#legend{
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    width: 60%;
+    margin: auto;
+}
+
+nav{
+    padding-top: 30px;
+    text-align: center;
+    width: 60%;
+    margin: auto;
+}
+
+nav a :nth-child(even){
+    background-color: lightgray;
+}
