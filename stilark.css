@@ -1,5 +1,5 @@
 *{
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif
 }
 #header{
     text-align: center;
@@ -9,8 +9,8 @@
 #legend{
     padding: 10px;
     border: 1px solid lightgray;
-    border-radius: 5px;
-    width: 60%;
+    border-radius: 20px;
+    width: 40%;
     margin: auto;
 }
 
