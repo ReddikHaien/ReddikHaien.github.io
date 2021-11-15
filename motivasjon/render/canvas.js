@@ -78,7 +78,7 @@ export class Canvas{
                 id: Math.floor(Math.random()*this.sokker.length),
                 x: Math.random()*this.ctx.canvas.width,
                 y: 0,
-                r: math.random()*Math.PI*2,
+                r: Math.random()*Math.PI*2,
             });
         }
 
