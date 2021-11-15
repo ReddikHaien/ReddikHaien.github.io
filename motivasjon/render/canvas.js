@@ -7,11 +7,6 @@ export class Canvas{
         this.ctx = canvas.getContext("2d");
         this.ctx.canvas.width = window.innerWidth;
         this.ctx.canvas.height = window.innerHeight;
-    }
-
-    clear(){
-        this.ctx.fillStyle = "lightblue";
-        this.ctx.fillRect(0,0,this.ctx.canvas.width,this.ctx.canvas.height);
         this.pus = new Image();
         this.sokker = [
             new Image(),
@@ -35,6 +30,12 @@ export class Canvas{
         });
 
         this.sokkerRegn = [];
+    }
+
+    clear(){
+        this.ctx.fillStyle = "lightblue";
+        this.ctx.fillRect(0,0,this.ctx.canvas.width,this.ctx.canvas.height);
+        
     }
 
     drawCable(dt){
