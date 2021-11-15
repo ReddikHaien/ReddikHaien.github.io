@@ -6,8 +6,8 @@ const canvas = new Canvas(document.getElementsByTagName("canvas")[0]);
 function run(){
 
     canvas.clear();
-    canvas.drawCable(0);
-
+    canvas.drawCable(performance.now()/1000);
+    canvas.drawPusen(performance.now()/1000);
     requestAnimationFrame(run);
 }
 
