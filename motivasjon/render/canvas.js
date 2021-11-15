@@ -13,11 +13,28 @@ export class Canvas{
         this.ctx.fillStyle = "lightblue";
         this.ctx.fillRect(0,0,this.ctx.canvas.width,this.ctx.canvas.height);
         this.pus = new Image();
-        this.innlastet = false;
+        this.sokker = [
+            new Image(),
+            new Image(),
+            new Image(),
+        ]
+        this.innlastet = 0;
+
         this.pus.onload = () => {
-            this.innlastet = true;
+            this.innlastet++;
         };
+
+        this.sokker.forEach(x => {
+            x.onload = () => {
+                this.innlastet++;
+            }
+        });
         this.pus.src = "./pusen.png";
+        this.sokker.forEach((x,i) => {
+            x.src = "./sokker " + i + ".png";
+        });
+
+        this.sokkerRegn = [];
     }
 
     drawCable(dt){
@@ -53,5 +70,26 @@ export class Canvas{
         console.log(width,height);
 
         this.ctx.drawImage(this.pus,x - width/2,y - height/2,width,height);
+    }
+
+    drawSokker(dt){
+        if (Math.random() < 0.3){
+            this.sokkerRegn.push({
+                id: Math.floor(math.random()*this.sokker.length),
+                x: Math.random()*this.ctx.canvas.width,
+                y: 0,
+                r: math.random()*Math.PI*2,
+            });
+        }
+
+        this.sokkerRegn.forEach(x => {
+            this.ctx.save();
+            this.ctx.translate(x.x,x.y);
+            this.ctx.rotate(dt + x.r);
+            this.ctx.drawImage(this.sokker[x.id],-this.sokker[x.id].width/2,-this.sokker[x.id].height/2);
+            this.ctx.restore();
+        });
+
+        this.sokkerRegn = this.sokkerRegn.filter(x => x.y > this.ctx.height + 300);
     }
 }
