@@ -88,6 +88,7 @@ export class Canvas{
             this.ctx.rotate(dt + x.r);
             this.ctx.drawImage(this.sokker[x.id],-this.sokker[x.id].width/2,-this.sokker[x.id].height/2);
             this.ctx.restore();
+            x.y += 5;
         });
 
         this.sokkerRegn = this.sokkerRegn.filter(x => x.y < this.ctx.height + 300);
