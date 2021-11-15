@@ -31,7 +31,7 @@ export class Canvas{
         });
         this.pus.src = "./pusen.png";
         this.sokker.forEach((x,i) => {
-            x.src = "./sokker " + i + ".png";
+            x.src = "./sokker " + (i+1) + ".png";
         });
 
         this.sokkerRegn = [];
@@ -75,7 +75,7 @@ export class Canvas{
     drawSokker(dt){
         if (Math.random() < 0.3){
             this.sokkerRegn.push({
-                id: Math.floor(math.random()*this.sokker.length),
+                id: Math.floor(Math.random()*this.sokker.length),
                 x: Math.random()*this.ctx.canvas.width,
                 y: 0,
                 r: math.random()*Math.PI*2,
