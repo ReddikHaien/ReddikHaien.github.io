@@ -20,7 +20,7 @@ export class Canvas{
         let minx = 0;
         let miny = this.ctx.canvas.height/3;
         let maxx = this.ctx.canvas.width;
-        let maxy = this.this.canvas.height*2/3
+        let maxy = this.ctx.canvas.height*2/3
         this.ctx.beginPath();
         this.ctx.moveTo(
             minx,miny,
