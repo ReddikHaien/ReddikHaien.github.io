@@ -79,17 +79,17 @@ export class Canvas{
                 id: Math.floor(Math.random()*this.sokker.length),
                 x: Math.random()*this.ctx.canvas.width,
                 y: 0,
-                r: Math.random()*Math.PI*2,
+                r: Math.random()*365,
             });
         }
 
         this.sokkerRegn.forEach(x => {
             this.ctx.save();
             this.ctx.translate(x.x,x.y);
-            this.ctx.rotate(dt + x.r);
+            this.ctx.rotate(dt*1000 + x.r);
             this.ctx.drawImage(this.sokker[x.id],-this.sokker[x.id].width/2,-this.sokker[x.id].height/2);
             this.ctx.restore();
-            x.y += 0.5;
+            x.y += 3;
         });
 
         this.sokkerRegn = this.sokkerRegn.filter(x => x.y < this.ctx.canvas.height + 300);
