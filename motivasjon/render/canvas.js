@@ -90,6 +90,6 @@ export class Canvas{
             this.ctx.restore();
         });
 
-        this.sokkerRegn = this.sokkerRegn.filter(x => x.y > this.ctx.height + 300);
+        this.sokkerRegn = this.sokkerRegn.filter(x => x.y < this.ctx.height + 300);
     }
 }
