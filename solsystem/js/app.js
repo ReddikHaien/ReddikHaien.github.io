@@ -3,6 +3,7 @@
 import {Color, PerspectiveCamera, Scene, WebGLRenderer} from "./build/three.module.js";
 import SolarSystem from "./solarSystem.js";
 import {VRButton} from "./build/VRButton.js";
+import HandController from "./controller.js";
 
 export default class App{
 
@@ -36,6 +37,7 @@ export default class App{
         document.body.appendChild(this.renderer.domElement);
 
         this.solarSystem = new SolarSystem(this.scene);
+        this.handController = new HandController(this.scene,this.renderer);
 
         this.render_closure = this.render.bind(this);
         this.renderer.setAnimationLoop(this.render_closure);
