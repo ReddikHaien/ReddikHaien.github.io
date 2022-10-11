@@ -11,11 +11,10 @@ export default class HandController{
         this.handMaterial = new MeshBasicMaterial({
             color: Color.NAMES.forestgreen
         });
-        this.handMesh = new Mesh(this.handGeometry, this.handMaterial);
-
         for (let i = 0; i < 2; i++){
             const controller = renderer.xr.getController(i);
-            controller.add(this.handMesh);
+            controller.add(new Mesh(this.handGeometry,this.handMaterial));
+            scene.add(controller);
         }
     }
 }

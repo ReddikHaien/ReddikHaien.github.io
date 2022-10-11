@@ -21,7 +21,7 @@ export default class SolarSystem{
         let heightSegments = 64;
 
         this.root = new Object3D();
-        this.root.position.z = -20;
+        this.root.position.z = -10;
         scene.add(this.root);
 
         let sunGeometry = new SphereGeometry(radius,widthSegments,heightSegments);
