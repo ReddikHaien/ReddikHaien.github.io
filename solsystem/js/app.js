@@ -18,7 +18,7 @@ export default class App{
 
         this.camera = new PerspectiveCamera(this.fov,this.aspect,this.near,this.far);
 
-        this.camera.position.z = 50;
+        this.camera.position.z = 5;
 
         this.scene = new Scene();
 
